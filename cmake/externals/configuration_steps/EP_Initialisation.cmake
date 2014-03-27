@@ -53,12 +53,21 @@ else()
   
   if (${required_for_plugins})  
     #  provide path of project needeed for Asclepios and visages plugins 
-    file(APPEND ${${PROJECT_NAME}_CONFIG_FILE}
-      "find_package(${ep} REQUIRED
-        PATHS \"${CMAKE_BINARY_DIR}/${ep}\" 
-        PATH_SUFFIXES install build
-        )\n"
-      )
+    if (${ep} STREQUAL medInria)
+      file(APPEND ${${PROJECT_NAME}_CONFIG_FILE}
+        "find_package(MEDINRIA REQUIRED
+          PATHS \"${CMAKE_BINARY_DIR}/${ep}\" 
+          PATH_SUFFIXES install build
+          )\n"
+        )
+    else()
+      file(APPEND ${${PROJECT_NAME}_CONFIG_FILE}
+        "find_package(${ep} REQUIRED
+          PATHS \"${CMAKE_BINARY_DIR}/${ep}\" 
+          PATH_SUFFIXES install build
+          )\n"
+        )
+    endif()
   endif()
 
 
